@@ -172,10 +172,10 @@ _device;
  */
 PROGMEM const driver driverTable[] = {
 	{ "M5450", 34, false, true, true, false, false },
-	{ "M5451", 35, false, true, true, false, false   },
-	{ "MM5452", 32, false, true, true, false, false   },
-	{ "MM5453", 33, false, true, true, false, false   },
-	{ "AY0438", 32, true, false, false, true, false  },
+	{ "M5451", 35, false, true, true, false, false },
+	{ "MM5452", 32, false, true, true, false, true },
+	{ "MM5453", 33, false, true, true, false, false },
+	{ "AY0438", 32, true, false, false, true, false },
 	{ "BT-M512RD-DR1", 35, false, true, true, false, true }
 };
 
@@ -193,9 +193,7 @@ driver* pDriverTable = (driver*) &driverTable;
 #define FIRST_CHARACTER 32 // ASCII value of first character defined in segment mapping array
 #define LAST_CHARACTER 128 // ASCII value of last character defined in segment mapping array
 
-
 #include "SevenSegment.h"
-
 
 /*
  * Display constructor
@@ -535,7 +533,6 @@ void SevenSegment::setCascaded(boolean cascaded){
 	}
 }
 
-
 /*
  * Get the segments defined for a character as a byte
  */
@@ -622,7 +619,6 @@ boolean SevenSegment::calculateDisplayRange(){
 	return true;
 }
 
-
 // ---------------------------------------------
 // Data pulsing
 // ---------------------------------------------
@@ -642,7 +638,6 @@ void SevenSegment::pulseLoad(){
 	digitalWrite(_pinLoad, HIGH);
 	digitalWrite(_pinLoad, LOW);
 }
-
 
 /*
  * Outputs data to screen :)
@@ -690,7 +685,7 @@ void SevenSegment::display(){
 		pulseLoad();
 	}
 
-	// Set data enable to low
+	// Set data enable to high
 	if (_device.dataEnable){
 		digitalWrite(_pinLoad, HIGH);
 	}
